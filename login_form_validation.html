@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: aquamarine;
+        }
+        .container{
+            position: absolute;
+            left: 40%;
+            top: 40%;
+        }
+        input{
+            padding: 12px;
+            margin: 4px;
+            border-radius: 8px;
+            border: none;
+        }
+        input[type='submit']{
+            float: right;
+            background-color:blueviolet;
+            color: white;
+        }
+        .msg{
+            font-size: 12pt;
+            font-style: italic;
+        }
+        .invalid{
+            color: red;
+        }
+        .valid{
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="" method="get" onsubmit="return validate()">
+            <input type="text" id="username" placeholder="Username">
+            <br>
+            <input type="password"  id="password" placeholder="Password">
+            <p class="msg" id="msg"></p>
+
+            <input type="submit" value="Login">
+        </form>
+    </div>
+    <script>
+        function validate(){
+            var flag = false;
+            var msg = ""
+            var username = document.getElementById("username").value
+            var password = document.getElementById("password").value
+            var elem = document.getElementById("msg");
+            var p_username = /^[a-zA-Z][a-zA-Z0-9-_]{3,32}$/
+            var p_password = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
+            if(!p_username.test(username)){
+                flag = true;
+                msg = "Invalid Username"
+            }
+            else if(!p_password.test(password)){
+                flag = true
+                msg = "Invalid Password"
+            }
+            
+            if(flag){
+                elem.innerHTML = msg;
+                elem.classList.add("invalid")
+                elem.classList.remove("valid")
+            }else{
+                elem.innerHTML = "Validation OK";
+                elem.classList.add("valid")
+                elem.classList.remove("invalid")
+            }
+            return !flag;
+        }
+    </script>
+</body>
+</html>
